@@ -58,6 +58,21 @@ npm run dev
 - **تست:** `pytest` (backend) و `vitest` (frontend).
 - **نقشه راه:** ۳ تکرار — (۱) کاتالوگ/مکان/طرف‌حساب، (۲) موتور فاکتور و Stock Guard، (۳) برگشتی/کاردکس/گزارش/چاپ.
 
+### استراتژی شاخه‌بندی
+
+- `main` — همیشه پایدار و قابل انتشار؛ فقط release و hotfix از این‌جا جدا می‌شود.
+- `develop` — خط اصلی در حال ساخت؛ همه داستان‌های کاربری این‌جا merge می‌شوند.
+- `feature/US-XX-slug` — یک شاخه کوتاه‌عمر برای هر داستان کاربری، از `develop` جدا و پس از merge حذف می‌شود. نمونه:
+
+  ```bash
+  git checkout develop
+  git checkout -b feature/US-01-warehouse-setup
+  # ... TDD: تست سبز، کد، commit ...
+  git checkout develop
+  git merge --no-ff feature/US-01-warehouse-setup
+  git branch -d feature/US-01-warehouse-setup
+  ```
+
 ## مستندات
 
 جزئیات معماری، شمای دیتابیس، قرارداد API و نقشه TDD در سند طرح معماری (تأییدشده) و پوشه `docs/` نگهداری می‌شود.
